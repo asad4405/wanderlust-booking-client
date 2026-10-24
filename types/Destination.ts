@@ -6,4 +6,7 @@ export interface DestinationType {
     duration: string;
     imageUrl: string;
     rating?: number;
+    category: string;
+    description: string;
+    departureDate: string;
 }
