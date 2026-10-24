@@ -17,7 +17,7 @@ const AddDestinationPage = () => {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
         
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/add-destination`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/add-destination`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
