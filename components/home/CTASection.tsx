@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const CTASection: React.FC = () => {
+const CTASection = () => {
     return (
         <section className="relative w-full py-28 sm:py-36 flex items-center justify-center overflow-hidden">
 

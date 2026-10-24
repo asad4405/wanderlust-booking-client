@@ -23,7 +23,7 @@ const Navbar = () => {
                 </nav>
 
                 <div className="text-center">
-                    <Link href="#" className="text-2xl font-black tracking-tight text-cyan-600">
+                    <Link href="/" className="text-2xl font-black tracking-tight text-cyan-600">
                         Wanderlast
                     </Link>
                 </div>

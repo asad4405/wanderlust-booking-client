@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-const Footer: React.FC = () => {
+const Footer = () => {
     return (
         <footer className="w-full bg-[#111111] text-white pt-16 pb-8 border-t border-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

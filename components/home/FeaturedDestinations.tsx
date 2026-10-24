@@ -71,7 +71,7 @@ const destinations: Destination[] = [
     },
 ];
 
-const FeaturedDestinations: React.FC = () => {
+const FeaturedDestinations = () => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState<number>(1);
     const [count] = useState<number>(destinations.length);

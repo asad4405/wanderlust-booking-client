@@ -45,7 +45,7 @@ const testimonials: Testimonial[] = [
     },
 ];
 
-const Testimonial: React.FC = () => {
+const Testimonial = () => {
     const [api, setApi] = useState<CarouselApi>();
     const [, setCurrent] = useState<number>(1);
 

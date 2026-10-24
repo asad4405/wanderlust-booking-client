@@ -23,7 +23,7 @@ const features = [
     },
 ];
 
-const WhyChooseUs: React.FC = () => {
+const WhyChooseUs = () => {
     return (
         <section className="w-full py-20 bg-[#F4F9FB]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
