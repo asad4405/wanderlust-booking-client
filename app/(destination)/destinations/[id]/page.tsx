@@ -70,10 +70,7 @@ export default function DestinationDetailsPage({ params }: { params: Promise<{ i
                         departureDate={destination.departureDate}
                     />
 
-                    <BookingCard 
-                        price={destination.price}
-                        departureDate={destination.departureDate}
-                    />
+                    <BookingCard destination={destination}/>
                 </div>
 
                 <EditDestinationModal 

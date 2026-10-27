@@ -12,7 +12,7 @@ interface HeaderProps {
     onEditClick: () => void;
 }
 
-export const DestinationHeader = ({ id, destination, onEditClick }: HeaderProps) => {
+export const DestinationHeader = ({ destination, onEditClick }: HeaderProps) => {
     
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -24,7 +24,7 @@ export const DestinationHeader = ({ id, destination, onEditClick }: HeaderProps)
                     className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 gap-2 transition-colors"
                 >
                     <ArrowLeft size={16} />
-                    পিছনে যান (Back to Destinations)
+                    Back to Destinations
                 </Link>
 
                 <div className="flex items-center gap-3">
