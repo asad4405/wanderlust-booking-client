@@ -4,6 +4,9 @@ import Image from "next/image";
 import { Calendar, MapPin, Trash2, Eye, CheckCircle2, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export interface MyBookingProps {
     booking: {
@@ -20,7 +23,22 @@ export interface MyBookingProps {
 export const MyBooking = ({ booking }: MyBookingProps) => {
     const status = booking.status || "Confirmed";
 
-    
+    const router = useRouter();
+
+    const handleCancelBooking = async(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/my-bookings/${booking._id}`, {
+            method: 'DELETE',
+        });
+
+        const data = await res.json();
+        
+        if(data){
+            toast.success("Bookings Deleted");
+            router.refresh();
+        }
+    }
 
     return (
         <Card className="border border-gray-200/80 shadow-sm bg-white rounded-xl overflow-hidden hover:shadow-md transition-all">
@@ -75,17 +93,19 @@ export const MyBooking = ({ booking }: MyBookingProps) => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <Button
+                        <Button onClick={handleCancelBooking}
                             variant="outline"
                             className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 text-xs h-9 px-3.5 cursor-pointer"
                         >
                             <Trash2 size={14} className="mr-1.5" /> Cancel
                         </Button>
-                        <Button
-                            className="bg-[#10A2B9] hover:bg-[#0e8fa3] text-white text-xs h-9 px-4 cursor-pointer"
-                        >
-                            <Eye size={14} className="mr-1.5" /> View
-                        </Button>
+                        <Link href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/destinations/${booking._id}`}>
+                            <Button
+                                className="bg-[#10A2B9] hover:bg-[#0e8fa3] text-white text-xs h-9 px-4 cursor-pointer"
+                            >
+                                <Eye size={14} className="mr-1.5" /> View
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 
