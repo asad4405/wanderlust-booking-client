@@ -40,7 +40,7 @@ const Navbar = () => {
                     <Link href="/destinations" className="text-gray-700 hover:text-cyan-600 transition-colors">
                         Destinations
                     </Link>
-                    <Link href="#" className="text-gray-700 hover:text-cyan-600 transition-colors">
+                    <Link href="/my-bookings" className="text-gray-700 hover:text-cyan-600 transition-colors">
                         My Bookings
                     </Link>
                     <Link href="#" className="text-gray-700 hover:text-cyan-600 transition-colors">
