@@ -25,8 +25,7 @@ export const MyBooking = ({ booking }: MyBookingProps) => {
 
     const router = useRouter();
 
-    const handleCancelBooking = async(e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleCancelBooking = async() => {
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/my-bookings/${booking._id}`, {
             method: 'DELETE',

@@ -35,7 +35,7 @@ export default async function MyBookingsPage() {
     });
 
     if (!session?.user?.email) {
-        redirect("/login");
+        redirect("/signin");
     }
 
     const bookings = await getMyBookings(session.user.email);
