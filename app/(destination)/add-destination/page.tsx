@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const AddDestinationPage = () => {
     const router = useRouter();
@@ -15,14 +16,19 @@ const AddDestinationPage = () => {
         e.preventDefault();
         const form = e.currentTarget;
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        const userData = Object.fromEntries(formData.entries());
+
+        const { data, error } = await authClient.token();
+        
+        const token = data?.token;
         
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/add-destination`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
+                authorization: `Bearer ${token}`
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(userData),
         });
 
         const destination = await res.json();
