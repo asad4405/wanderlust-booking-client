@@ -10,16 +10,15 @@ export default async function DestinationDetailsPage({
 }) {
     const { id } = await params;
 
-    const jwtToken = await auth.api.getToken({
+    const token = await auth.api.getToken({
         headers: await headers()
     });
 
-    console.log(jwtToken?.token)
 
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const res = await fetch(`${baseUrl}/destination/${id}`, {
         headers: {
-            authorization: jwtToken?.token
+            authorization: `Bearer ${token}`
         },
         cache: 'no-store'
     });
