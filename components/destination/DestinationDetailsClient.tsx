@@ -8,6 +8,7 @@ import { EditDestinationModal } from '@/components/destination/EditDestinationMo
 import { DestinationType } from '@/types/Destination';
 import { DestinationHeader } from '@/components/destination/DestinationHeader';
 import { useRouter } from 'next/navigation';
+import { authClient } from '@/lib/auth-client'; 
 
 interface DestinationDetailsClientProps {
     initialDestination: DestinationType;
@@ -25,9 +26,18 @@ export function DestinationDetailsClient({
     const handleUpdateSuccess = async () => {
         try {
             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-            const res = await fetch(`${baseUrl}/destination/${id}`);
+            
+            const { data: tokenData } = await authClient.token();
+            const token = tokenData?.token;
+
+            const res = await fetch(`${baseUrl}/destination/${id}`, {
+                headers: {
+                    authorization: token ? `Bearer ${token}` : ''
+                }
+            });
+            
             const data = await res.json();
-            if (data) {
+            if (res.ok && data) {
                 setDestination(data);
                 router.refresh();
             }

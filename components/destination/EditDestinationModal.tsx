@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DestinationType } from '@/types/Destination';
 import { toast } from 'sonner';
+import { authClient } from '@/lib/auth-client';
 
 interface EditModalProps {
     isOpen: boolean;
@@ -20,21 +21,27 @@ export const EditDestinationModal = ({ isOpen, onClose, destination, onUpdateSuc
         e.preventDefault();
         
         const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+        const userData = Object.fromEntries(formData.entries());
 
         try {
             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
+            const { data: tokenData } = await authClient.token();
+            const token = tokenData?.token;
+
             const res = await fetch(`${baseUrl}/destination/${destination._id}`, {
                 method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                headers: { 
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(userData),
             });
             
             if (res.ok) {
                 toast.success('Destination updated successfully!', {
                     position: 'bottom-right',
                 });
-                onUpdateSuccess();
+                onUpdateSuccess(); 
                 onClose();
             } else {
                 toast.error('Failed to update destination', {
