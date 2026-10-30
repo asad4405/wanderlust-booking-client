@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { DestinationType } from '@/types/Destination';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { getTokenFromClient } from '@/lib/getTokenFromClient';
 
 interface DeleteModalProps {
     isOpen: boolean;
@@ -20,9 +21,12 @@ export const DeleteDestinationModal = ({ isOpen, onClose, destination }: DeleteM
     const handleDelete = async () => {
         try {
             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-            
+            const token = await getTokenFromClient();
             const res = await fetch(`${baseUrl}/destination/${destination._id}`, {
                 method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
             });
 
             if (res.ok) {

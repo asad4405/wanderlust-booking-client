@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const AddDestinationPage = () => {
     const router = useRouter();
@@ -18,9 +18,7 @@ const AddDestinationPage = () => {
         const formData = new FormData(form);
         const userData = Object.fromEntries(formData.entries());
 
-        const { data, error } = await authClient.token();
-        
-        const token = data?.token;
+        const token = getTokenFromClient();
         
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/add-destination`, {
             method: 'POST',

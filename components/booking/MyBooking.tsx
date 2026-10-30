@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 export interface MyBookingProps {
     booking: {
@@ -26,8 +27,11 @@ export const MyBooking = ({ booking }: MyBookingProps) => {
     const router = useRouter();
 
     const handleCancelBooking = async() => {
-
+        const token = await getTokenFromClient();
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/my-bookings/${booking._id}`, {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
             method: 'DELETE',
         });
 
@@ -98,7 +102,7 @@ export const MyBooking = ({ booking }: MyBookingProps) => {
                         >
                             <Trash2 size={14} className="mr-1.5" /> Cancel
                         </Button>
-                        <Link href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/destinations/${booking._id}`}>
+                        <Link href={`/destinations/${booking._id}`}>
                             <Button
                                 className="bg-[#10A2B9] hover:bg-[#0e8fa3] text-white text-xs h-9 px-4 cursor-pointer"
                             >

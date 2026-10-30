@@ -1,7 +1,8 @@
-import { auth } from "@/lib/auth"; // Ba apnar server-side auth helper (Better Auth)
+import { auth } from "@/lib/auth"; 
 import { headers } from "next/headers";
 import { MyBooking } from "@/components/booking/MyBooking";
 import { redirect } from "next/navigation";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
 
 interface BookingType {
     _id: string;
@@ -14,8 +15,12 @@ interface BookingType {
 }
 async function getMyBookings(email: string): Promise<BookingType[]> {
     try {
+        const token = await getTokenFromServer();
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/my-bookings/${email}`, {
-            cache: 'no-store' 
+            headers: {
+                authorization: `Bearer ${token}`
+            },
+            cache: 'no-store' ,
         });
 
         if (!res.ok) {

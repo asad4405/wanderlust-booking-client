@@ -1,7 +1,6 @@
 import { DestinationDetailsClient } from '@/components/destination/DestinationDetailsClient';
-import { auth } from '@/lib/auth';
+import { getTokenFromServer } from '@/lib/getTokenFromServer';
 import { DestinationType } from '@/types/Destination';
-import { headers } from 'next/headers';
 
 export default async function DestinationDetailsPage({
     params
@@ -10,11 +9,7 @@ export default async function DestinationDetailsPage({
 }) {
     const { id } = await params;
 
-    const tokenData = await auth.api.getToken({
-        headers: await headers()
-    });
-
-    const token = typeof tokenData === 'string' ? tokenData : tokenData?.token;
+    const token = await getTokenFromServer();
 
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const res = await fetch(`${baseUrl}/destination/${id}`, {
